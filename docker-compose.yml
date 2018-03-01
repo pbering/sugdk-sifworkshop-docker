@@ -1,0 +1,24 @@
+version: '2.3'
+
+services:
+
+  sql:
+    image: codehouse/sitecore:9.0.171219-sql
+    volumes:
+      - .\data\sql:C:\Data
+    mem_limit: 3500MB
+
+  solr:
+    image: codehouse/sitecore:9.0.171219-solr
+    volumes:
+      - .\data\solr:C:\Data
+    ports:
+      - "8983:8983"
+
+  cm:
+    image: codehouse/sitecore:9.0.171219-xm1-cm
+    links:
+      - sql
+      - solr
+    ports :
+      - "9000:80"
